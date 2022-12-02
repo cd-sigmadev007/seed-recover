@@ -82,7 +82,19 @@ const readMnemonic = async () => {
       result.BTC49.balance = await getBalance(result.BTC49.address);
       result.BTC84.balance = await getBalance(result.BTC84.address);
       result.BTC44.balance = await getBalance(result.BTC44.address);
-      const csv = new ObjectsToCsv([result.BTC49, result.BTC84, result.BTC44]);
+      const csv = new ObjectsToCsv([
+        {
+          mnemonic: line,
+          BTC49: result.BTC49.address,
+          BTC49_balance: result.BTC49.balance,
+          BTC84: result.BTC84.address,
+          BTC84_balance: result.BTC84.balance,
+
+          BTC44: result.BTC44.address,
+          BTC44_balance: result.BTC44.balance,
+        },
+        
+      ]);
       await csv.toDisk("./result.csv", { append: true });
     }
 
